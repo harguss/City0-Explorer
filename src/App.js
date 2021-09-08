@@ -36,7 +36,7 @@ class App extends React.Component {
             <input type="text" name="search" placeholder="Location" />
           </label>
           <div>
-            <button type="submit">Search</button>
+            <button type="submit">Explore</button>
           </div>
         </form>
 
