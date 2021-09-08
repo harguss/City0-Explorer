@@ -2,7 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import './App.css';
 
+// const apiUrl = process.env.REACT_APP_API_URL;
+
+
 class App extends React.Component {
+
+  
   // instead of constructor/super
   // assign initial state as class property
   state = {
@@ -19,13 +24,28 @@ class App extends React.Component {
     console.log(q);
 
     // assign q in state to be value of q
-    this.setState({ q });
+    this.setState({ q, location: null});
 
-    const url = `https://us1.locationiq.com/v1/search.php?key=pk.3d3f151dd32b59aabcf52d7231919bb3&q=415 12th Ave SE, Cedar Rapids&format=json`;
-    const response = axios.get(url);
-    console.log(response);
+    const url = `https://us1.locationiq.com/v1/search.php?`;
+    const response = axios.get(url, {
+      params: {
+        key: process.env.REACT_APP_LOCATION_KEY,
+        q,
+        format: 'json'
+      }
+    });
+    console.log('this is the response from  axios',response);
   };
 
+
+
+
+
+
+
+
+
+  
   render() {
     return (
       <div className="App">
