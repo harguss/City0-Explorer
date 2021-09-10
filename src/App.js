@@ -3,56 +3,52 @@ import React from 'react';
 import './App.css';
 
 // const apiUrl = process.env.REACT_APP_API_URL;
+// const response = axios.get(url);
 
 
 class App extends React.Component {
 
-  
-  // instead of constructor/super
-  // assign initial state as class property
-  state = {
-    q: null,
-  };
+state = {
+  q:null, 
+  location: null,
+};
 
-  handleSearch = async event => {
-    // avoid making new GET request
-    event.preventDefault();
+handleLocationSearch = async event => {
+  event.preventDefault();
+   
 
-    let form = event.target;
-    let input = form.elements.search;
-    let q = input.value;
+  let form = Event.target;
+  let input = form.elements.search;
+  let q = input.value;
     console.log(q);
 
-    // assign q in state to be value of q
-    this.setState({ q, location: null});
+    
+    this.setState({ q, location:null });
 
-    const url = `https://us1.locationiq.com/v1/search.php?`;
-    const response = axios.get(url, {
+
+
+    const url = `https://us1.locationiq.com/v1/search.php`;
+    const response = await axios.get(url, {
       params: {
         key: process.env.REACT_APP_LOCATION_KEY,
         q,
-        format: 'json'
+        format: 'json',
       }
     });
-    console.log('this is the response from  axios',response);
+    console.log(response);
+  
+    const location = response.data[0];
+    this.setState({ location });
   };
 
 
-
-
-
-
-
-
-
-  
-  render() {
+render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSearch}>
+        <form onSubmit={this.handleLocationSearch}>
           <label>
             Search for a location:
-            {' '} {/* add a space between */}
+            {' '} 
             <input type="text" name="search" placeholder="Location" />
           </label>
           <div>
@@ -60,9 +56,15 @@ class App extends React.Component {
           </div>
         </form>
 
-        {this.state.q &&
+         {this.state.q &&
+         <>
           <h2>Search: {this.state.q}</h2>
+          {this.state.location?
+          <p>display Name: {this.state.location.display_name}</p>
+          : <p>Loading...</p>
         }
+        </>
+       } 
       </div>
     );
   }
