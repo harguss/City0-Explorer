@@ -6,7 +6,10 @@ import './App.css';
 
 
 class App extends React.Component {
-
+handleLocationSearch = submitEvent =. {
+  submitEvent.preventDefault();
+}
+console.log('submitted!', submitEvent.target);
   
   // instead of constructor/super
   // assign initial state as class property
@@ -45,11 +48,11 @@ class App extends React.Component {
 
 
 
-  
+
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSearch}>
+        <form onSubmit={this.handleLocationSearch}>
           <label>
             Search for a location:
             {' '} {/* add a space between */}
@@ -60,9 +63,9 @@ class App extends React.Component {
           </div>
         </form>
 
-        {this.state.q &&
+        {/* {this.state.q &&
           <h2>Search: {this.state.q}</h2>
-        }
+        } */}
       </div>
     );
   }
