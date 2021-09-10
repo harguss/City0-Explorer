@@ -3,8 +3,6 @@ import React from 'react';
 import './App.css';
 
 const apiUrl = process.env.REACT_APP_SERVER_JS;
-// const response = axios.get(url);
-
 
 class App extends React.Component {
 
@@ -15,20 +13,13 @@ state = {
 
 handleLocationSearch = async (event) => {
   event.preventDefault();
-   
-
   let form = event.target;
-  console.log('form event target', form);
+  // console.log('form event target', form);
   let input = form.elements.search;
-   console.log('input from form elements',form.elements.search);
+  //  console.log('input from form elements',form.elements.search);
   let q = input.value;
-    console.log('this is the q from the input.value',q);
-
-    
+    // console.log('this is the q from the input.value',q);
     this.setState({ q, location:null });
-
-
-
     const url = `https://us1.locationiq.com/v1/search.php`;
     const response = await axios.get(url, {
       params: {
@@ -37,30 +28,28 @@ handleLocationSearch = async (event) => {
         format: 'json',
       }
     });
-    console.log('this is the response in the locationIQ',response);
-  
+    // console.log('this is the response in the locationIQ',response);
     const location = response.data[0];
-    console.log('this is the location object?', location);
-
+    // console.log('this is the location object?', location);
     this.setState({ location });
-    
     //call that fun fun function with location 
-    // this.whatEverWeatherFunctionCalled(location)''
+    this.getWeatherData(location);
   };
 
   //new fun fun function
-  getWeatherdata = async (location)=> {
-    const response = await axios.get('${apiUrl}/shoppingList', {
+  getWeatherData = async (location)=> {
+    const response = await axios.get(`${apiUrl}/weatherData`, {
     params: {
       lat: location.lat,
-      lon: location. lon,
+      lon: location.lon,
     },
-    });
-    console.log(response);
 
-    this.setState({
-      weather: response.data
-    })
+  });
+  console.log('response from getweather',response);
+
+    // this.setState({
+    //   weather: response.data
+    // });
   }
 
 
@@ -102,7 +91,11 @@ render() {
        } 
       </div>
     );
+
   }
 }
+
+  
+
 
 export default App;
