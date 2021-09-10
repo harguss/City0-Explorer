@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import './App.css';
 
-// const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 // const response = axios.get(url);
 
 
@@ -13,14 +13,16 @@ state = {
   location: null,
 };
 
-handleLocationSearch = async event => {
+handleLocationSearch = async (event) => {
   event.preventDefault();
    
 
-  let form = Event.target;
+  let form = event.target;
+  console.log('form event target', form);
   let input = form.elements.search;
+   console.log('input from form elements',form.elements.search);
   let q = input.value;
-    console.log(q);
+    console.log('this is the q from the input.value',q);
 
     
     this.setState({ q, location:null });
@@ -35,11 +37,27 @@ handleLocationSearch = async event => {
         format: 'json',
       }
     });
-    console.log(response);
+    console.log('this is the response in the locationIQ',response);
   
     const location = response.data[0];
+    console.log('this is the location object?', location);
+
     this.setState({ location });
+    
+    //call that fun fun function with location 
+    // this.whatEverWeatherFunctionCalled(location)''
   };
+
+  //new fun fun function
+
+
+
+
+
+
+
+
+
 
 
 render() {
@@ -60,7 +78,11 @@ render() {
          <>
           <h2>Search: {this.state.q}</h2>
           {this.state.location?
-          <p>display Name: {this.state.location.display_name}</p>
+          <>
+          <p>Display Name: {this.state.location.display_name}</p>
+          <p>Latitude: {this.state.location.lat}</p>
+          <p>Longitude: {this.state.location.lon}</p>
+          </>
           : <p>Loading...</p>
         }
         </>
