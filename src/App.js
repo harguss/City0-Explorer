@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import './App.css';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = process.env.REACT_APP_SERVER_JS;
 // const response = axios.get(url);
 
 
@@ -49,6 +49,19 @@ handleLocationSearch = async (event) => {
   };
 
   //new fun fun function
+  getWeatherdata = async (location)=> {
+    const response = await axios.get('${apiUrl}/shoppingList', {
+    params: {
+      lat: location.lat,
+      lon: location. lon,
+    },
+    });
+    console.log(response);
+
+    this.setState({
+      weather: response.data
+    })
+  }
 
 
 
