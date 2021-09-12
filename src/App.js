@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import './App.css';
+import './index.css';
 import Map from './Map.js';
-import { Form, Container, Button } from 'react-bootstrap';
-
+import { Form, Container, Button, } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const apiUrl = process.env.REACT_APP_SERVER_JS;
 
@@ -12,6 +13,7 @@ class App extends React.Component {
 state = {
   q:null, 
   location: null,
+  weather: null
 };
 
 handleLocationSearch = async (event) => {
@@ -47,12 +49,12 @@ handleLocationSearch = async (event) => {
        lon: location.lon,
      },
    });
-   console.log('response from getweather',response);
+   console.log('response from getweather',response.data);
 
    this.setState({
       weather: response.data
     })
-    console.log('is this showing up',this.state.weatherData);
+    console.log('is this showing up',this.state.weather);
 }
 
 render() {
@@ -70,15 +72,15 @@ render() {
         </div>
         </Form>
         <div>
-            {this.state.weatherData &&
+            {this.state.weather &&
               <ul>
                 <li>
-                {this.state.weatherData.map(day => (
+                {this.state.weather.map(day => (
                     <>
                     <p>Date: {day.date}</p>
                     <p>Description: {day.description}</p>
                     </>
-  ))}
+                  ))}
                 </li>
               </ul>
             }
@@ -92,7 +94,9 @@ render() {
                <p>{this.state.location.display_name}</p>
                <p>Latitude: {this.state.location.lat}</p>
                <p>Longitude: {this.state.location.lon}</p>
-               <Map location={this.state.location} />
+               <Map location={this.state.location} /> 
+               
+               
              </>
              : <p>Loading...</p>}
          </>

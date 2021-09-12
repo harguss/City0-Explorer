@@ -1,5 +1,7 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image'
+import './index.css';
+
 
 const key = process.env.REACT_APP_LOCATION_KEY
 const staticMapUrl = 'https://maps.locationiq.com/v3/staticmap';
@@ -11,10 +13,14 @@ class Map extends React.Component {
     
 
     return(
+
       <div id='image-magnifier-container'>
-        <Image id='mapImage' src={src} roundedCircle
+        <Image id='mapImage' src={src} 
         alt={`Map of ${location.display_name}`} />
         </div>
+        
+      
+        
       )
     }
   }
