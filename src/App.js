@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import './App.css';
+import Map from './Map.js';
+import { Form, Container, Button } from 'react-bootstrap';
+
 
 const apiUrl = process.env.REACT_APP_SERVER_JS;
 
@@ -19,7 +22,7 @@ handleLocationSearch = async (event) => {
   //  console.log('input from form elements',form.elements.search);
   let q = input.value;
     // console.log('this is the q from the input.value',q);
-    this.setState({ q, location:null });
+    this.setState({ q, location: null });
     const url = `https://us1.locationiq.com/v1/search.php`;
     const response = await axios.get(url, {
       params: {
@@ -37,61 +40,67 @@ handleLocationSearch = async (event) => {
   };
 
   //new fun fun function
-  getWeatherData = async (location)=> {
+  getWeatherData = async (location) => {
     const response = await axios.get(`${apiUrl}/weatherData`, {
-    params: {
-      lat: location.lat,
-      lon: location.lon,
-    },
+     params: {
+       lat: location.lat,
+       lon: location.lon,
+     },
+   });
+   console.log('response from getweather',response);
 
-  });
-  console.log('response from getweather',response);
-
-    // this.setState({
-    //   weather: response.data
-    // });
-  }
-
-
-
-
-
-
-
-
-
-
+   this.setState({
+      weather: response.data
+    })
+    console.log('is this showing up',this.state.weatherData);
+}
 
 render() {
-    return (
+  return (
+    <Container asw="main">
       <div className="App">
-        <form onSubmit={this.handleLocationSearch}>
-          <label>
+      <Form onSubmit={this.handleLocationSearch}>
+        <Form.Label id="formLabel" column="sm" lg={2}>
             Search for a location:
-            {' '} 
-            <input type="text" name="search" placeholder="Location" />
-          </label>
-          <div>
-            <button type="submit">Explore</button>
+            {' '}
+          <Form.Control type="text" name="search" placeholder="Location" /> 
+        </Form.Label>
+        <div>
+          {/* <Button id="button" variant="dark" size="sm" type="submit">Explore!</Button> */}
+           <Button id="success">Success</Button> */}
+        </div>
+        </Form>
+        <div>
+            {this.state.weatherData &&
+              <ul>
+                <li>
+                {this.state.weatherData.map(day => (
+                    <>
+                    <p>Date: {day.date}</p>
+                    <p>Description: {day.description}</p>
+                    </>
+  ))}
+                </li>
+              </ul>
+            }
           </div>
-        </form>
 
-         {this.state.q &&
+        {this.state.q &&
          <>
           <h2>Search: {this.state.q}</h2>
-          {this.state.location?
-          <>
-          <p>Display Name: {this.state.location.display_name}</p>
-          <p>Latitude: {this.state.location.lat}</p>
-          <p>Longitude: {this.state.location.lon}</p>
-          </>
-          : <p>Loading...</p>
+           {this.state.location?
+             <>
+               <p>{this.state.location.display_name}</p>
+               <p>Latitude: {this.state.location.lat}</p>
+               <p>Longitude: {this.state.location.lon}</p>
+               <Map location={this.state.location} />
+             </>
+             : <p>Loading...</p>}
+         </>
         }
-        </>
-       } 
-      </div>
+     </div>
+    </Container>
     );
-
   }
 }
 
