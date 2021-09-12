@@ -7,7 +7,7 @@ const staticMapUrl = 'https://maps.locationiq.com/v3/staticmap';
 class Map extends React.Component {
   render() {
     let location = this.props.location;
-    let src = `${staticMapUrl}?key=${key}&center=${location.lat},${location.lon}&zoom=12`;
+    let src = `${staticMapUrl}?key=${key}&center=${location.lat},${location.lon}&zoom=13`;
     
 
     return(

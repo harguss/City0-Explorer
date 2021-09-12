@@ -66,8 +66,7 @@ render() {
           <Form.Control type="text" name="search" placeholder="Location" /> 
         </Form.Label>
         <div>
-          {/* <Button id="button" variant="dark" size="sm" type="submit">Explore!</Button> */}
-           <Button id="success">Success</Button> */}
+            <Button id="success"type="submit">Explore!</Button>  
         </div>
         </Form>
         <div>
