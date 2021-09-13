@@ -5,8 +5,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-image {
-  border: 5px solid #058bf8;
+
+#mapImage {
+  border: 20px solid #058bf8;
   } 
 
 

@@ -59,8 +59,8 @@ handleLocationSearch = async (event) => {
 
 render() {
   return (
-    <Container asw="main">
-      <div className="App">
+    <Container as="main">
+       <div className="App">
       <Form onSubmit={this.handleLocationSearch}>
         <Form.Label id="formLabel" column="sm" lg={2}>
             Search for a location:
@@ -71,20 +71,26 @@ render() {
             <Button id="success"type="submit">Explore!</Button>  
         </div>
         </Form>
+
+
+
         <div>
-            {this.state.weather &&
-              <ul>
-                <li>
-                {this.state.weather.map(day => (
-                    <>
-                    <p>Date: {day.date}</p>
-                    <p>Description: {day.description}</p>
-                    </>
-                  ))}
-                </li>
-              </ul>
-            }
-          </div>
+            <ul>
+                {this.state.weather &&
+                    this.state.weather.map(day => (
+                        <>
+                        <li>Date: {day.date}</li>
+                        <li>Description: {day.description}</li>
+                        </>
+                      ))}
+            </ul>
+        </div>
+
+
+
+
+
+
 
         {this.state.q &&
          <>
